@@ -9,9 +9,9 @@
     tools:context=".MainActivity">
 
 
-    <androidx.fragment.app.FragmentContainerView
+    <fragment
         android:id="@+id/listFrag"
-        android:name="com.example.carinformation.ListFragment"
+        android:name="com.example.carinformation.ListFrag"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -23,22 +23,35 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/ButtonsFrag"
-            android:name="com.example.carinformation.ButtonsFragment"
+        <fragment
+            android:id="@+id/buttonsFrag"
+            android:name="com.example.carinformation.ButtonsFrag"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             tools:ignore="NestedWeights"
             tools:layout="@layout/fragment_buttons" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/PictureAndDescriptionFrag"
-            android:name="com.example.carinformation.DescriptionFragment"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
-            tools:layout="@layout/fragment_description" />
+            android:layout_weight="3">
+
+            <fragment
+                android:id="@+id/decsriptionFrag"
+                android:name="com.example.carinformation.DescriptionFrag"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/fragment_description" />
+
+            <fragment
+                android:id="@+id/pictureFrag"
+                android:name="com.example.carinformation.PictureFrag"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/fragment_picture" />
+
+        </RelativeLayout>
 
 
     </LinearLayout>
