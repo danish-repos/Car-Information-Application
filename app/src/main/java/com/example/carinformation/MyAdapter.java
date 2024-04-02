@@ -18,11 +18,9 @@ import java.util.ArrayList;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
 
     ArrayList<Car> list;
-    Context context;
 
-    public MyAdapter (Context context, ArrayList<Car> list)
+    public MyAdapter (ArrayList<Car> list)
     {
-        this.context = context;
         this.list = list;
     }
 

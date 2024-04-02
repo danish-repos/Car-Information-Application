@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        myAdapter = new MyAdapter(this,list);
+        myAdapter = new MyAdapter(list);
         recyclerView.setAdapter(myAdapter);
 
     }
