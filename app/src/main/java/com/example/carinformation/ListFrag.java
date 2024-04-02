@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,14 +16,6 @@ import android.widget.ListView;
 
 
 public class ListFrag extends ListFragment {
-
-
-
-    ListClicked myActivity;
-
-    public interface ListClicked {
-        public void onItemClicked(int index);
-    }
 
     public ListFrag() {
         // Required empty public constructor
@@ -36,7 +29,7 @@ public class ListFrag extends ListFragment {
 
     @Override
     public void onAttach(@NonNull Context context) {
-        myActivity = (ListClicked) context;
+
         super.onAttach(context);
     }
 
@@ -44,6 +37,6 @@ public class ListFrag extends ListFragment {
     public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id) {
 
         super.onListItemClick(l, v, position, id);
-        myActivity.onItemClicked(position);
     }
+
 }

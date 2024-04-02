@@ -1,12 +1,14 @@
 package com.example.carinformation;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements ListFrag.ListClicked{
+public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -28,7 +30,9 @@ public class MainActivity extends AppCompatActivity implements ListFrag.ListClic
 
     FragmentManager fragmentManager;
 
-    View buttonsFrag, descriptionFrag, listFrag, pictureFrag;
+    Fragment buttonsFrag, pictureFrag, listFrag, descriptionFrag;
+
+    View buttonsFragView, descriptionFragView, listFragView, pictureFragView;
 
     TextView tvName, tvPhoneNumber;
 
@@ -75,6 +79,26 @@ public class MainActivity extends AppCompatActivity implements ListFrag.ListClic
             }
         });
 
+        // have to make this class on your own
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+
+        });
+
+
     }
 
     private void init () {
@@ -82,19 +106,24 @@ public class MainActivity extends AppCompatActivity implements ListFrag.ListClic
 
         fragmentManager = getSupportFragmentManager();
 
+        buttonsFrag = fragmentManager.findFragmentById(R.id.buttonsFrag);
+        descriptionFrag = fragmentManager.findFragmentById(R.id.decsriptionFrag);
+        listFrag = fragmentManager.findFragmentById(R.id.listFrag);
+        pictureFrag = fragmentManager.findFragmentById(R.id.pictureFrag);
+
         // getting all views of the fragments
-        buttonsFrag = Objects.requireNonNull(fragmentManager.findFragmentById(R.id.buttonsFrag)).requireView();
-        descriptionFrag = Objects.requireNonNull(fragmentManager.findFragmentById(R.id.decsriptionFrag)).requireView();
-        listFrag = Objects.requireNonNull(fragmentManager.findFragmentById(R.id.listFrag)).requireView();
-        pictureFrag = Objects.requireNonNull(fragmentManager.findFragmentById(R.id.pictureFrag)).requireView();
+        buttonsFragView = Objects.requireNonNull(buttonsFrag).requireView();
+        descriptionFragView = Objects.requireNonNull(descriptionFrag).requireView();
+        listFragView = Objects.requireNonNull(listFrag).requireView();
+        pictureFragView = Objects.requireNonNull(pictureFrag).requireView();
 
-        btnCarInfo = buttonsFrag.findViewById(R.id.btnCarInfo);
-        btnOwnerInfo = buttonsFrag.findViewById(R.id.btnOwnerInfo);
+        btnCarInfo = buttonsFragView.findViewById(R.id.btnCarInfo);
+        btnOwnerInfo = buttonsFragView.findViewById(R.id.btnOwnerInfo);
 
-        tvName = descriptionFrag.findViewById(R.id.tvName);
-        tvPhoneNumber = descriptionFrag.findViewById(R.id.tvPhoneNumber);
+        tvName = descriptionFragView.findViewById(R.id.tvName);
+        tvPhoneNumber = descriptionFragView.findViewById(R.id.tvPhoneNumber);
 
-        ivCarLogo = pictureFrag.findViewById(R.id.ivCarLogo);
+        ivCarLogo = pictureFragView.findViewById(R.id.ivCarLogo);
 
 
         // populating the list here
@@ -104,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements ListFrag.ListClic
         list.add(new Car(R.drawable.volkswagen,"2005","Babar","01236"));
 
 
-        recyclerView = listFrag.findViewById(R.id.rvList);
+        recyclerView = listFragView.findViewById(R.id.rvList);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this);
@@ -115,15 +144,4 @@ public class MainActivity extends AppCompatActivity implements ListFrag.ListClic
 
     }
 
-
-
-    @Override
-    public void onItemClicked(int index) {
-
-        tvName.setText(list.get(index).ownerName);
-        tvPhoneNumber.setText(list.get(index).phoneNumber);
-
-        ivCarLogo.setImageResource(list.get(index).logo);
-
-    }
 }
